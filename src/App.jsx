@@ -66,14 +66,14 @@ function App() {
         <div style={loginBoxStyle}>
           <h2 style={{ margin: '0 0 5px 0', color: '#1e293b', textAlign: 'center' }}>Poultry ERP Portal</h2>
           <p style={{ margin: '0 0 20px 0', color: '#64748b', fontSize: '13px', textAlign: 'center' }}>
-            {isRegisterMode ? 'Create New Account' : 'Broiler Management System Login'}
+            {isRegisterMode ? 'Create New Account (1st User = Admin)' : 'Broiler Management System Login'}
           </p>
 
           {errorMsg && <div style={errorBoxStyle}>{errorMsg}</div>}
           {successMsg && <div style={successBoxStyle}>{successMsg}</div>}
 
           {!isRegisterMode ? (
-            /* LOGIN FORM */
+            /* LOGIN FORM (No Role dropdown) */
             <form onSubmit={handleLogin}>
               <div style={{ marginBottom: '15px' }}>
                 <label style={labelStyle}>Email / User ID</label>
@@ -102,7 +102,7 @@ function App() {
               <button type="submit" style={buttonStyle}>Login</button>
 
               <div style={{ textAlign: 'center', marginTop: '15px' }}>
-                <span style={{ fontSize: '13px', color: '#64748b' }}>Naya account chahiye? </span>
+                <span style={{ fontSize: '13px', color: '#64748b' }}>Naya account banana hai? </span>
                 <button
                   type="button"
                   onClick={() => { setIsRegisterMode(true); setErrorMsg(''); setSuccessMsg(''); }}
@@ -151,7 +151,7 @@ function App() {
                 />
               </div>
 
-              <button type="submit" style={{ ...buttonStyle, backgroundColor: '#16a34a' }}>Register</button>
+              <button type="submit" style={{ ...buttonStyle, backgroundColor: '#16a34a' }}>Register Account</button>
 
               <div style={{ textAlign: 'center', marginTop: '15px' }}>
                 <span style={{ fontSize: '13px', color: '#64748b' }}>Pehle se account hai? </span>
@@ -201,7 +201,7 @@ function App() {
 
         <section style={{ marginTop: '25px', backgroundColor: '#fff', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
           <h2 style={{ marginTop: 0 }}>{userRole} Operations Panel</h2>
-          <p>🔷 Multi-role backend database routing active.</p>
+          <p>🔷 Secure database connection active.</p>
         </section>
 
         <section style={{ marginTop: '20px', backgroundColor: '#fff', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
@@ -209,7 +209,7 @@ function App() {
           {loading ? (
             <p>Data load ho raha hai...</p>
           ) : batches.length === 0 ? (
-            <p>Koi placement data nahi mila (Backend connected is live).</p>
+            <p>Koi placement data nahi mila.</p>
           ) : (
             <ul>
               {batches.map((item, index) => (
