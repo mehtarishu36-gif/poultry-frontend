@@ -1,18 +1,17 @@
 // src/services/service.js
 
-// Vercel Environment Variable ya Fallback Render Backend URL
 const API_URL = import.meta.env.VITE_API_URL || "https://poultry-backend-tgbx.onrender.com";
 
 export const apiService = {
-  // 1. Secure Login API Call
-  login: async (email, password, role) => {
+  // 1. Secure Login API Call (Without Role selection)
+  login: async (email, password) => {
     try {
       const response = await fetch(`${API_URL}/api/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email, password, role })
+        body: JSON.stringify({ email, password })
       });
 
       const data = await response.json();
@@ -29,7 +28,32 @@ export const apiService = {
     }
   },
 
-  // 2. Fetch Active Placements / Batches API Call
+  // 2. User Registration API Call
+  register: async (name, email, password) => {
+    try {
+      const response = await fetch(`${API_URL}/api/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, email, password })
+      });
+
+      const data = await response.json();
+      return {
+        ok: response.ok,
+        ...data
+      };
+    } catch (error) {
+      console.error("Register API Error:", error);
+      return {
+        success: false,
+        message: 'Registration ke dauran server error aaya.'
+      };
+    }
+  },
+
+  // 3. Fetch Active Placements / Batches API Call
   getPlacements: async () => {
     try {
       const response = await fetch(`${API_URL}/api/placements`, {
@@ -48,31 +72,6 @@ export const apiService = {
     } catch (error) {
       console.error("Get Placements Error:", error);
       return [];
-    }
-  },
-
-  // 3. Add New Batch / Placement API Call
-  addPlacement: async (batchData) => {
-    try {
-      const response = await fetch(`${API_URL}/api/placements`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(batchData)
-      });
-
-      const data = await response.json();
-      return {
-        ok: response.ok,
-        ...data
-      };
-    } catch (error) {
-      console.error("Add Placement Error:", error);
-      return {
-        success: false,
-        message: 'Batch add karte samay server error aaya.'
-      };
     }
   }
 };
